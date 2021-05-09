@@ -7,10 +7,10 @@ export default class UsersController {
         username: req.body.username,
         userId: req.body.userId,
         email: req.body.email,
-        phoneNum:req.body.phoneNum
+        phoneNum: req.body.phoneNum,
       };
-     
-      const bookings=req.body.bookings
+
+      const bookings = req.body.bookings;
       const date = new Date();
 
       const ReviewResponse = await UserDAO.addUser(userInfo, bookings, date);
@@ -23,46 +23,44 @@ export default class UsersController {
     try {
       const _id = req.body._id;
       const bookings = req.body.bookings;
-      const userId=req.body.userId;
+      const userId = req.body.userId;
 
-      const reviewResponse = await UserDAO.updateUser(
-       _id,
-        userId,
-        bookings
-      )
+      const reviewResponse = await UserDAO.updateUser(_id, userId, bookings);
 
-      var { error } = reviewResponse
+      var { error } = reviewResponse;
       if (error) {
-        res.status(400).json({ error })
+        res.status(400).json({ error });
       }
 
       if (reviewResponse.modifiedCount === 0) {
         throw new Error(
-          "unable to update review - user may not be original poster",
-        )
+          "unable to update review - user may not be original poster"
+        );
       }
 
-      res.json({ status: "success" })
+      res.json({ status: "success" });
     } catch (e) {
-      res.status(500).json({ error: e.message })
+      res.status(500).json({ error: e.message });
     }
   }
   static async apiGetUser(req, res, next) {
-    const farmsPerPage = req.query.farmsPerPage ? parseInt(req.query.farmsPerPage, 10) : 20
-    const page = req.query.page ? parseInt(req.query.page, 10) : 0
+    const farmsPerPage = req.query.farmsPerPage
+      ? parseInt(req.query.farmsPerPage, 10)
+      : 20;
+    const page = req.query.page ? parseInt(req.query.page, 10) : 0;
 
-    let filters = {}
+    let filters = {};
     if (req.query.username) {
-      filters.username = req.query.username
-    } else if (req.query.postId) {
-      filters.postId = req.query.postId
-    } 
+      filters.username = req.query.username;
+    } else if (req.query.userId) {
+      filters.userId = req.query.userId;
+    }
 
     const { farmsList, totalNumFarms } = await UserDAO.getUsers({
       filters,
       page,
       farmsPerPage,
-    })
+    });
 
     let response = {
       users: farmsList,
@@ -70,23 +68,7 @@ export default class UsersController {
       filters: filters,
       entries_per_page: farmsPerPage,
       total_results: totalNumFarms,
-    }
-    res.json(response)
+    };
+    res.json(response);
   }
-  /*
-  static async apiGetUserById(req, res, next) {
-    try {
-      let id = req.params.id || {}
-      let user = await UserDAO.getUserByID(id)
-      if (!user) {
-        res.status(404).json({ error: "Not found" })
-        return
-      }
-      res.json(user)
-    } catch (e) {
-      console.log(`api, ${e}`)
-      res.status(500).json({ error: e })
-    }
-  }
-  */
 }

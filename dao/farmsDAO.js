@@ -21,7 +21,7 @@ export default class FarmsDAO {
     page = 0,
     farmsPerPage = 10,
   } = {}) {
-    let query
+    let query;
     if (filters) {
       if ("title" in filters) {
         query = { $text: { $search: filters["title"] } }

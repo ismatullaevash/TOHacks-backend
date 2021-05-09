@@ -19,5 +19,33 @@ export default class BookingsController {
       res.status(500).json({ error: e.message });
     }
   }
+  static async apiGetBookings(req, res, next) {
+    const farmsPerPage = req.query.farmsPerPage
+      ? parseInt(req.query.farmsPerPage, 10)
+      : 20;
+    const page = req.query.page ? parseInt(req.query.page, 10) : 0;
+
+    let filters = {};
+    if (req.query.username) {
+      filters.username = req.query.username;
+    } else if (req.query.userId) {
+      filters.userId = req.query.userId;
+    }
+
+    const { farmsList, totalNumFarms } = await BookingDAO.getBookings({
+      filters,
+      page,
+      farmsPerPage,
+    });
+
+    let response = {
+      bookings: farmsList,
+      page: page,
+      filters: filters,
+      entries_per_page: farmsPerPage,
+      total_results: totalNumFarms,
+    };
+    res.json(response);
+  }
  
 }

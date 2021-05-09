@@ -33,28 +33,14 @@ export default class UserDAO {
       return { error: e };
     }
   }
-/*
-  static async updateUser(_id, currentUserId, bookings) {
-    try {
-      const updateResponse = await users.updateOne(
-        { userId: currentUserId, _id: ObjectId(_id) },
-        { $set: { bookings: bookings } }
-      );
 
-      return updateResponse;
-    } catch (e) {
-      console.error(`Unable to update review: ${e}`);
-      return { error: e };
-    }
-  }
-  */
   static async getUsers({ filters = null, page = 0, farmsPerPage = 10 } = {}) {
     let query;
     if (filters) {
       if ("username" in filters) {
         query = { $text: { $search: filters["username"] } };
-      } else if ("postId" in filters) {
-        query = { postId: { $eq: filters["postId"] } };
+      } else if ("userId" in filters) {
+        query = { userId: { $eq: filters["userId"] } };
       }
     }
 
@@ -81,48 +67,4 @@ export default class UserDAO {
       return { farmsList: [], totalNumFarms: 0 };
     }
   }
-  /*
-  static async getUserByID(id) {
-    try {
-      const pipeline = [
-        {
-            $match: {
-                userId: new (id),
-            },
-        },
-              {
-                  $lookup: {
-                      from: "bookings",
-                      let: {
-                          id: "$userId",
-                      },
-                      pipeline: [
-                          {
-                              $match: {
-                                  $expr: {
-                                      $eq: ["$userId", "$$id"],
-                                  },
-                              },
-                          },
-                          {
-                              $sort: {
-                                  date: -1,
-                              },
-                          },
-                      ],
-                      as: "bookings",
-                  },
-              },
-              {
-                  $addFields: {
-                      bookings: "$bookings",
-                  },
-              },
-          ]
-      return await users.aggregate(pipeline).next()
-    } catch (e) {
-      console.error(`Something went wrong in getRestaurantByID: ${e}`)
-      throw e
-    }
-  }*/
 }
