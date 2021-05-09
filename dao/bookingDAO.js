@@ -19,7 +19,7 @@ export default class BookingDAO {
     }
   }
 
-  static async addBooking(userId, booking, date) {
+  static async addBooking(booking, date) {
     try {
       const bookingDoc = {
         title: booking.title,
@@ -28,7 +28,7 @@ export default class BookingDAO {
         bookingPhoneNum: booking.phoneNum,
         website: booking.website,
         farmerName: booking.postedBy,
-        userId: userId,
+        userEmail: booking.userEmail,
       };
 
       return await bookings.insertOne(bookingDoc);
@@ -46,8 +46,8 @@ export default class BookingDAO {
     if (filters) {
       if ("farmerName" in filters) {
         query = { $text: { $search: filters["farmerName"] } };
-      } else if ("userId" in filters) {
-        query = { userId: { $eq: filters["userId"] } };
+      } else if ("userEmail" in filters) {
+        query = { userEmail: { $eq: filters["userEmail"] } };
       }
     }
 

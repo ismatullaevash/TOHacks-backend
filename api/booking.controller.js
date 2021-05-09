@@ -24,7 +24,7 @@ export default class BookingsController {
         postingName:req.body.postedBy,
         website:req.body.website
       }
-      const ReviewResponse = await BookingDAO.addBooking(userId, booking, date);
+      const ReviewResponse = await BookingDAO.addBooking(booking, date);
       ///////
       const courier = CourierClient({
         authorizationToken: "dk_prod_NXY4AZP6FZMSMVQZ7YWEXHFMKT7T",
@@ -62,8 +62,8 @@ export default class BookingsController {
     let filters = {};
     if (req.query.username) {
       filters.username = req.query.username;
-    } else if (req.query.userId) {
-      filters.userId = req.query.userId;
+    } else if (req.query.userEmail) {
+      filters.userEmail = req.query.userEmail;
     }
 
     const { farmsList, totalNumFarms } = await BookingDAO.getBookings({

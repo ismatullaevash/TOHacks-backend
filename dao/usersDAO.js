@@ -38,8 +38,8 @@ export default class UserDAO {
     if (filters) {
       if ("username" in filters) {
         query = { $text: { $search: filters["username"] } };
-      } else if ("userId" in filters) {
-        query = { userId: { $eq: filters["userId"] } };
+      } else if ("email" in filters) {
+        query = { email: { $eq: filters["email"] } };
       }
     }
 
@@ -66,4 +66,6 @@ export default class UserDAO {
       return { farmsList: [], totalNumFarms: 0 };
     }
   }
+  
+
 }

@@ -50,8 +50,8 @@ export default class UsersController {
     let filters = {};
     if (req.query.username) {
       filters.username = req.query.username;
-    } else if (req.query.userId) {
-      filters.userId = req.query.userId;
+    } else if (req.query.email) {
+      filters.email = req.query.email;
     }
 
     const { farmsList, totalNumFarms } = await UserDAO.getUsers({
@@ -69,4 +69,6 @@ export default class UsersController {
     };
     res.json(response);
   }
+  
+
 }
