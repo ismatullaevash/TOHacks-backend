@@ -7,8 +7,7 @@ export default class UsersController {
       const userInfo = {
         username: req.body.username,
         userId: req.body.userId,
-        email: req.body.email,
-        phoneNum: req.body.phoneNum,
+        email: req.body.email
       };
 
       const date = new Date();

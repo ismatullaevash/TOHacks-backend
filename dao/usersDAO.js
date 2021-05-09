@@ -23,7 +23,6 @@ export default class UserDAO {
         username: user.username,
         userId: user.userId,
         email: user.email,
-        phoneNum: user.phoneNum,
         dateCreated: date,
       };
 
