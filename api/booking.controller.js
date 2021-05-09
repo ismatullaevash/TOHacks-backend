@@ -2,25 +2,7 @@ import BookingDAO from "../dao/bookingDAO.js";
 import pkg from "@trycourier/courier";
 const { CourierClient } = pkg;
 export default class BookingsController {
-  static async sendMessage(address) {
-    const courier = CourierClient({
-      authorizationToken: "dk_prod_NXY4AZP6FZMSMVQZ7YWEXHFMKT7T",
-    });
-
-    // Example: send a message supporting email & SMS
-    const { messageId } = await courier.send({
-      eventId: "GJM780DKQJ4PTHJPSTSCAB7WYYT0",
-      recipientId: "3c409c03-fd61-49de-945e-d23e2df7a447",
-      profile: {
-        email: "niyomex753@ffuqzt.com",
-      },
-      data: {
-        text: address,
-        name: "Joey",
-      },
-      override: {},
-    });
-  }
+ 
   static async apiAddBooking(req, res, next) {
     try {
       const booking = {

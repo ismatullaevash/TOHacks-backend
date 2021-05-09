@@ -16,5 +16,4 @@ router.route("/users").get(UsersCtrl.apiGetUser);
 router
   .route("/users")
   .post(UsersCtrl.apiAddUser)
-  .put(UsersCtrl.apiUpdateBooking)
 export default router;
