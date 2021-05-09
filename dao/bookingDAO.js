@@ -33,7 +33,7 @@ export default class BookingDAO {
 
       return await bookings.insertOne(bookingDoc);
     } catch (e) {
-      console.error(`Unable to post review: ${e}`);
+      console.error(`Unable to add booking: ${e}`);
       return { error: e };
     }
   }

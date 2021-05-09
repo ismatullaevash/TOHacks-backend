@@ -28,7 +28,7 @@ export default class UserDAO {
 
       return await users.insertOne(newUser);
     } catch (e) {
-      console.error(`Unable to post review: ${e}`);
+      console.error(`Unable to add user: ${e}`);
       return { error: e };
     }
   }

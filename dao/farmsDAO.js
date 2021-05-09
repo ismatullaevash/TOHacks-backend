@@ -11,7 +11,7 @@ export default class FarmsDAO {
         farms = await conn.db(process.env.RESTAURANT_REVIEWS_NS).collection("farms")
     } catch (e) {
       console.error(
-        `Unable to establish a collection handle in restaurantsDAO: ${e}`,
+        `Unable to establish a collection handle in FarmsDAO: ${e}`,
       )
     }
   }
